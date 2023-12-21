@@ -29,9 +29,12 @@ public class Employee {
     @Column(name = "birthday", nullable = false)
     private LocalDate birthday;
 
+    @Column(name = "boss_id")
+    private Long boss_id;
+
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
     @Column(name = "month_salary")
@@ -42,6 +45,8 @@ public class Employee {
             joinColumns = @JoinColumn(name = "employee_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id"))
     private List<Course> courses;
+
+
 
 
 

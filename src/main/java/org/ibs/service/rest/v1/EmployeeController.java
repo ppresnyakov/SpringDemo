@@ -1,5 +1,6 @@
-package org.ibs.service.rest;
+package org.ibs.service.rest.v1;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.ibs.service.EmployeeRepository;
 import org.ibs.service.domain.entity.Employee;
@@ -9,8 +10,10 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-@RestController
-@RequestMapping("/employees")
+import java.util.Collections;
+
+@RestController("employee controller v1")
+@RequestMapping("/v1/employees")
 @Slf4j
 public class EmployeeController {
 
@@ -24,7 +27,10 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Operation(operationId = "addEmp", summary = "Adds  nes employee.")
     Employee newEmployee(@RequestBody Employee employee){
+
+
         log.info("-------------------------------------------------------------");
         if(employee.getId() != null){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Found id. Use PUT instead of POST.");
@@ -40,6 +46,7 @@ public class EmployeeController {
         return repository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
 
     @DeleteMapping("/{id}")
     void deleteEmployee(@PathVariable Long id){

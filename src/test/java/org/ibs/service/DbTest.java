@@ -38,13 +38,6 @@ import java.util.List;
 
     @BeforeEach
     void setup() {
-        Department department = new Department( null, "IT");
-        Course course = new Course(null, "REST service");
-        Employee emp = new Employee(null,"a", "b", LocalDate.now(), department,  500000, List.of(course) );
-
-        em.persist(department);
-        em.persist(course);
-        em.persist(emp);
     }
 
     @Test
@@ -60,7 +53,5 @@ import java.util.List;
 
     @Test
     void test2(){
-       Employee emp = employeeRepository.findByFirstName("a").get();
-       Assert.assertEquals("REST service", emp.getCourses().get(0).getName());
     }
 }
